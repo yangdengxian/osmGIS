@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .container {
+            height: 100px;
+            width: 300px;
+            margin: 100px auto;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+    <script src="./js/src/platform/dateTool.js"></script>
+</head>
+
+<body>
+    <div id="container" class="container"></div>
+    <script>
+        (function() {
+            var date = "",
+                dateCon = {};
+
+            function setDate() {
+                date = new Date();
+                dateCon = document.getElementById('container');
+                dateCon.innerHTML = date.format("yyyy-MM-dd hh:mm:ss");
+            }
+            setDate();
+            setInterval(setDate, 1000);
+        })();
+    </script>
+</body>
+
+</html>

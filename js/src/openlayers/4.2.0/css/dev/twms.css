@@ -1,0 +1,75 @@
+body,
+html,
+#map {
+    padding: 0px;
+    margin: 0px;
+    overflow: hidden;
+    background: #ffffff;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+#map {
+    height: 90%;
+    border: 1px solid #f00
+}
+
+.buttonChn {
+    height: 5%;
+}
+
+.ol-mouseposition {
+    position: absolute;
+    bottom: 20px;
+    left: 45%;
+    padding: 5px;
+    background: #fff;
+    border: 1px solid #ccc;
+    font-size: 12px;
+}
+
+ul {
+    list-style: none;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 14px;
+    z-index: 99;
+}
+
+ul li {
+    line-height: 28px;
+    height: 28px;
+    text-align: center;
+    width: 40px;
+    float: left;
+    cursor: pointer;
+    background: #ffffff;
+}
+
+ul li.active {
+    background: #007AC2;
+    opacity: 0.8;
+    color: #ffffff;
+}
+
+ul li.day {
+    border: 1px solid #007AC2;
+    border-right: none;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+ul li.night {
+    border: 1px solid #007AC2;
+    border-left: none;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+button {
+    width: 50px;
+}
