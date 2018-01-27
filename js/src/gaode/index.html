@@ -35,98 +35,31 @@
 
 <body>
     <div id="container"></div>
-
+    <div id="myPageTop">
+        <table>
+            <tr>
+                <td>
+                    <label>请输入关键字：</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input id="tipinput" />
+                </td>
+            </tr>
+        </table>
+    </div>
     <script>
         var map = new AMap.Map('container', {
             resizeEnable: true,
             zoom: 7,
             center: [116.397428, 39.90923]
         });
-
-        AMapUI.loadUI(['overlay/SimpleInfoWindow', 'overlay/SimpleMarker'], function(SimpleInfoWindow, SimpleMarker) {
-            var markersClusterer = [], //聚合数据
-                markersNoClusterer = []; //监测站数据
-            //先加载聚合数据
-            setMarkerAndShowInfo(dataList, map.getZoom());
-            map.on("zoomend", function(e) {
-                addMarkers()
-            });
-
-            // map.on("moveend", function(e) {
-            //     addMarkers();
-            // });
-            //移除marker标签
-            function removeMarkers(markers) {
-                map.remove(markers);
-            }
-            //添加markers
-            function addMarkers() {
-                setMarkerAndShowInfo(dataList, map.getZoom());
-            }
-
-            function setMarkerAndShowInfo(dataList, zoom) {
-                if (zoom < 10) {
-                    if (markersClusterer.length > 0) {
-                        return;
-                    }
-                    dataList[0].forEach(dataObj => {
-                        setMarkInfo(dataObj, zoom);
-                    });
-                } else {
-                    if (markersNoClusterer.length) {
-                        return;
-                    }
-                    dataList[1].forEach(dataObj => {
-                        setMarkInfo(dataObj);
-                    });
-                }
-                //设置marker信息
-                function setMarkInfo(dataObj, zoom) {
-                    var marker = new SimpleMarker({
-                        //设置节点属性
-                        iconLabel: {
-                            //普通文本
-                            innerHTML: dataObj["PM25"],
-                            //设置样式
-                            style: {
-                                color: '#fff',
-                                fontSize: '12px',
-                                marginTop: '2px'
-                            }
-                        },
-
-                        iconStyle: 'red',
-                        map: map,
-                        position: [dataObj["longtitude"], dataObj["latitude"]]
-                    });
-
-                    var infoWindow = new SimpleInfoWindow({
-
-                        infoTitle: '<strong>这里是标题</strong>',
-                        infoBody: '<p class="my-desc"><strong>这里是内容。</strong> <br/> 高德地图 JavaScript API，是由 JavaScript 语言编写的应用程序接口，' +
-                            '它能够帮助您在网站或移动端中构建功能丰富、交互性强的地图应用程序</p>',
-
-                        //基点指向marker的头部位置
-                        offset: new AMap.Pixel(0, -31)
-                    });
-
-                    zoom < 11 ? markersClusterer.push(marker) : markersNoClusterer.push(marker);
-
-                    function openInfoWin() {
-                        infoWindow.open(map, marker.getPosition());
-                    }
-
-                    //marker 点击时打开
-                    AMap.event.addListener(marker, 'click', function(e) {
-                        openInfoWin();
-                    });
-                }
-
-            }
-
-
-        });
     </script>
+    <!-- 查询 -->
+    <script src="./search.js"></script>
+    <!-- 标注显示 -->
+    <script src="./marker.js"></script>
 </body>
 
 </html>
