@@ -1,4 +1,4 @@
-AMapUI.loadUI(['overlay/SimpleInfoWindow', 'overlay/SimpleMarker'], function(SimpleInfoWindow, SimpleMarker) {
+AMapUI.loadUI(['overlay/SimpleInfoWindow', 'overlay/SimpleMarker', 'overlay/SvgMarker'], function(SimpleInfoWindow, SimpleMarker, SvgMarker) {
     var markersClusterer = [], //聚合数据
         markersNoClusterer = []; //监测站数据
     //先加载聚合数据
@@ -7,9 +7,9 @@ AMapUI.loadUI(['overlay/SimpleInfoWindow', 'overlay/SimpleMarker'], function(Sim
         addMarkers()
     });
 
-    // map.on("moveend", function(e) {
-    //     addMarkers();
-    // });
+    map.on("moveend", function(e) {
+        addMarkers();
+    });
     //移除marker标签
     function removeMarkers(markers) {
         map.remove(markers);
@@ -37,23 +37,44 @@ AMapUI.loadUI(['overlay/SimpleInfoWindow', 'overlay/SimpleMarker'], function(Sim
         }
         //设置marker信息
         function setMarkInfo(dataObj, zoom) {
-            var marker = new SimpleMarker({
-                //设置节点属性
-                iconLabel: {
-                    //普通文本
-                    innerHTML: dataObj["PM25"],
-                    //设置样式
-                    style: {
-                        color: '#fff',
-                        fontSize: '12px',
-                        marginTop: '2px'
-                    }
-                },
+            var marker = new SvgMarker(
+                new SvgMarker.Shape.SquarePin({
+                    height: 60,
+                    strokeWidth: 1,
+                    strokeColor: '#ccc',
+                    fillColor: 'green'
+                }), {
+                    showPositionPoint: true,
+                    iconLabel: {
+                        //普通文本
+                        innerHTML: dataObj["province_name"] + "<br/>" + dataObj["PM25"],
+                        //设置样式
+                        style: {
+                            color: '#fff',
+                            fontSize: '12px',
+                            marginTop: '2px'
+                        }
+                    },
+                    map: map,
+                    position: [dataObj["longtitude"], dataObj["latitude"]]
+                });
+            // var marker = new SvgMarker.Shape.SquarePin({
+            //     //设置节点属性
+            //     iconLabel: {
+            //         //普通文本
+            //         innerHTML: dataObj["PM25"],
+            //         //设置样式
+            //         style: {
+            //             color: '#fff',
+            //             fontSize: '12px',
+            //             marginTop: '2px'
+            //         }
+            //     },
 
-                iconStyle: 'red',
-                map: map,
-                position: [dataObj["longtitude"], dataObj["latitude"]]
-            });
+            //     iconStyle: 'red',
+            //     map: map,
+            //     position: [dataObj["longtitude"], dataObj["latitude"]]
+            // });
 
             var infoWindow = new SimpleInfoWindow({
 
